@@ -21,7 +21,7 @@ public class Analayzer {
     }
 
     public class NegativeTextAnalyzer extends KeywordAnalyzer {
-        private String[] keywords_negative = {":(", ":|", "=("};
+        private String[] keywords_negative = {":( :| =("};
 
         @Override
         protected String[] getKeywords() {
@@ -55,10 +55,9 @@ public class Analayzer {
 
         @Override
         public Label processText(String text) {
-            text:
-            getKeywords();
-            if (text.contains(text)) return getLabel();
-
+            for (String keywords : getKeywords()) {
+                if (text.contains(keywords)) return getLabel();
+            }
             return Label.OK;
         }
     }

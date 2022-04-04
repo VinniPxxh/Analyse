@@ -2,6 +2,15 @@ package com.company;
 
 public class Analayzer {
 
+    public Label checkLabels(TextAnalyzer[] analyzers, String text) {
+        for (TextAnalyzer textAnalyse : analyzers) {
+            if (textAnalyse.processText(text) != Label.OK) {
+                return textAnalyse.processText(text);
+            }
+        }
+        return Label.OK;
+    }
+
     public class SpamAnalyzer extends KeywordAnalyzer {
         public String[] keywords;
 
@@ -21,11 +30,11 @@ public class Analayzer {
     }
 
     public class NegativeTextAnalyzer extends KeywordAnalyzer {
-        private String[] keywords_negative = {":( :| =("};
+        private String[] keywordsNegative = {":(", "=(", ":|"};
 
         @Override
         protected String[] getKeywords() {
-            return keywords_negative;
+            return keywordsNegative;
         }
 
         @Override
@@ -35,15 +44,17 @@ public class Analayzer {
     }
 
     public class TooLongTextAnalyzer implements TextAnalyzer {
-        private int maxLength;
+        public int maxLength;
 
-        TooLongTextAnalyzer(int maxLength) {
+        public TooLongTextAnalyzer(int maxLength) {
             this.maxLength = maxLength;
         }
 
         @Override
         public Label processText(String text) {
-            if (text.length() > maxLength) return Label.TOO_LONG;
+            if (text.length() > maxLength) {
+                return Label.TOO_LONG;
+            }
             return Label.OK;
         }
     }
@@ -56,16 +67,12 @@ public class Analayzer {
         @Override
         public Label processText(String text) {
             for (String keywords : getKeywords()) {
-                if (text.contains(keywords)) return getLabel();
+                if (text.contains(keywords)) {
+                    return getLabel();
+                }
             }
             return Label.OK;
         }
-    }
-    public Label checkLabels(TextAnalyzer[] analyzers, String text) {
-        for (TextAnalyzer obj_txt_an : analyzers) {
-            if (obj_txt_an.processText(text) != Label.OK) return obj_txt_an.processText(text);
-        }
-        return Label.OK;
     }
 }
 

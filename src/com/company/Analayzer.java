@@ -1,12 +1,7 @@
 package com.company;
 
 public class Analayzer {
-    public Label checkLabels(TextAnalyzer[] analyzers, String text) {
-        for (TextAnalyzer obj_txt_an : analyzers) {
-            if (obj_txt_an.processText(text) != Label.OK) return obj_txt_an.processText(text);
-        }
-        return Label.OK;
-    }
+
     public class SpamAnalyzer extends KeywordAnalyzer {
         public String[] keywords;
 
@@ -66,6 +61,12 @@ public class Analayzer {
 
             return Label.OK;
         }
+    }
+    public Label checkLabels(TextAnalyzer[] analyzers, String text) {
+        for (TextAnalyzer obj_txt_an : analyzers) {
+            if (obj_txt_an.processText(text) != Label.OK) return obj_txt_an.processText(text);
+        }
+        return Label.OK;
     }
 }
 

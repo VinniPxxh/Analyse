@@ -23,21 +23,19 @@ public class Analayzer {
         @Override
         protected Label getLabel() {
             return Label.SPAM;
-
-
         }
 
         @Override
         public Label processText(String text) {
-            my_text : getKeywords();
+            text : getKeywords();
             if (text.contains(text)) return getLabel();
 
             return Label.OK;
         }
     }
 
-    public class NegativeTextAnalyzer extends KeywordAnalyzer implements TextAnalyzer {
-        private String[] keywords_negative = {":(", ":|", "=("};
+    public abstract class  NegativeTextAnalyzer extends KeywordAnalyzer {
+        public String[] keywords_negative = {":(", ":|", "=("};
 
         @Override
         protected String[] getKeywords() {
@@ -48,18 +46,24 @@ public class Analayzer {
         protected Label getLabel() {
             return Label.NEGATIVE_TEXT;
         }
-    }
+        @Override
+        public Label processText(String text) {
 
+            if(text.contains(text)) return getLabel();
+            return getLabel();
+        }
+    }
     public class TooLongTextAnalyzer implements TextAnalyzer {
 
         private int maxLength;
+
         public TooLongTextAnalyzer( int maxLength) {
             this.maxLength = maxLength;
         }
 
         @Override
         public Label processText(String text) {
-            if(text.length() < maxLength) return Label.TOO_LONG;
+            if(text.length() > maxLength) return Label.TOO_LONG;
 
             return Label.OK;
         }
@@ -80,3 +84,4 @@ public class Analayzer {
         }
     }
 }
+

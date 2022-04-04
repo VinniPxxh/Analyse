@@ -25,13 +25,6 @@ public class Analayzer {
             return Label.SPAM;
         }
 
-        @Override
-        public Label processText(String text) {
-            text : getKeywords();
-            if (text.contains(text)) return getLabel();
-
-            return Label.OK;
-        }
     }
 
     public abstract class  NegativeTextAnalyzer extends KeywordAnalyzer {
@@ -45,12 +38,6 @@ public class Analayzer {
         @Override
         protected Label getLabel() {
             return Label.NEGATIVE_TEXT;
-        }
-        @Override
-        public Label processText(String text) {
-
-            if(text.contains(text)) return getLabel();
-            return getLabel();
         }
     }
     public class TooLongTextAnalyzer implements TextAnalyzer {
